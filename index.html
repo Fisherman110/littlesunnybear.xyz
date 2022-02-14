@@ -3,51 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
     <link rel="shortcut icon" href="./favicon.ico" />
     <title></title>
 
-
-  </head>
-
-  <body>
-    
     <style id="blogcss">
       .article-item,
-      .article-content,
-      .bbg-comment-area,
-      .page-content,
-      .tag-content {
+      .article-content {
         background-color: white;
         margin-top: 30px;
         margin-bottom: 30px;
         padding: 16px;
-        box-shadow: 0 3px 1px -2px rgb(0 0 0 / 60%),
-          0 2px 2px 0 rgb(0 0 0 / 36%), 0 1px 5px 0 rgb(0 0 0 / 32%);
+        box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%),
+          0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
         opacity: 0.8;
-        border-radius: 12px;
       }
-      
-      .friend-card{
-      box-shadow: 0 3px 1px -2px rgb(0 0 0 / 60%),
-          0 2px 2px 0 rgb(0 0 0 / 36%), 0 1px 5px 0 rgb(0 0 0 / 32%);
-          border-radius: 12px;
-      
-      }
-      
-      @media (max-width: 1050px) { 
-      
-      #empty_friend_book_list{
-      
-      display:none;
-
-      
-      }
-      
-      
-      
-      }
-      
-      
 
       .article-item-sub,
       .article-content-sub {
@@ -60,21 +38,8 @@
           0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
       }
 
-      .nav-link{
-        padding-top: 4px;
-        padding-bottom: 4px;
-        
-      }
-
-      .navbar-brand{
-        padding-top: 4px;
-        padding-bottom: 4px;
-        font-size: 16px;
+      .nav-link {
         font-weight: bolder;
-      }
-
-      a{
-        text-decoration: none;
       }
 
       @keyframes fade-in {
@@ -435,145 +400,22 @@
         }
       }
     </style>
-        <style id="whether_nightmode">
+  </head>
 
-        </style>
-        <style>
-          
-    blockquote {
-      color: #666666;
-      margin: 0;
-      padding-left: 12px;
-      border-left: 4px #eee solid;
-    }
-    
-    hr {
-      display: block;
-      border: 0;
-      border-top: 1px solid #aaa;
-      border-bottom: 1px solid #eee;
-      margin: 1em 0;
-      padding: 0;
-    }
-    
-    pre,
-    code,
-    kbd,
-    samp {
-      border-radius: 4px;
-      background-color: #f2f5f8;
-      padding-top:4px;
-      padding-bottom: 4px;
-      padding-left: 12px;
-      padding-right: 12px;
-      color:#0550ae;
-      display: inline-block;
-    }
-    
-    #night_mode_btn{
-      position: fixed;
-      z-index: 99;
-      right: 20px;
-      bottom: 20px;
-    }
-    #back_to_top_btn{
-      position: fixed;
-      z-index: 99;
-      right: 20px;
-      bottom: 60px;
-    }
-    
-        </style>
-        <style id="custom_css"></style>
+  <body>
     <div id="top"></div>
     <div id="root"></div>
-    <div id="back_to_top_btn">
-      <a href="#top" class="btn btn-secondary"><i class="fa fa-angle-up"></i></a>
-    </div>
-    <div id="night_mode_btn">
-      <button class="btn btn-secondary" onclick="switch_night_mode()"><i class="fa fa-moon-o"></i></button>
 
-    </div>
-
-   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown@0.5.0/lib/markdown.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
     <script>
-
-      if(localStorage.getItem("is_nightmode") === null || localStorage.getItem("is_nightmode") === undefined){
-        localStorage.setItem("is_nightmode","off");
-      }
-
-      if(localStorage.getItem("is_nightmode") === "on"){
-        switch_to_night_mode();
-      }
-
-      function switch_to_night_mode(){
-            document.getElementById("whether_nightmode").innerHTML = `
-          body{
-            background-color:black;
-            
-          }
-          #blog_index_title,#blog_index_subtitle{
-            color:white;
-          }
-          `;
-          localStorage.setItem("is_nightmode","on");
-        }
-
-        function switch_to_light_mode(){
-          document.getElementById("whether_nightmode").innerHTML ="";
-          localStorage.setItem("is_nightmode","off");
-        }
-
-        function switch_night_mode(){
-          if(localStorage.getItem("is_nightmode") === "off"){
-            switch_to_night_mode();
-          }else if(localStorage.getItem("is_nightmode") === "on"){
-            switch_to_light_mode();
-          }
-        }
-
-        const langdata = {
-          "ARCHIVE_AND_TAGS":{
-            "简体中文": "归档和标签",
-            "English": "Archive and tags"
-          },
-          "ARTICLE_LIST":{
-            "简体中文": "文章列表",
-            "English": "Article List"
-          },
-          "ARTICLE_CREATEDAT":{
-            "简体中文": "此文章编写于",
-            "English": "This article is written at "
-          },
-          "LASTMODIFIEDAT":{
-            "简体中文": "最近修改于",
-            "English": "Last modified at "
-          },
-          "TAGS":{
-            "简体中文": "标签",
-            "English": "Tags: "
-          },
-          "FOREVER_LINK_PART1":{
-            "简体中文": "本页面的永久链接是：",
-            "English": "The Forever link of this page is "
-          },
-          "FOREVER_LINK_PART2":{
-            "简体中文": "，你可以使用此链接将本页面分享给其它人。",
-            "English": ", you can share the link to others."
-          },
-          "COMMENT_UNAVAILABLE_DUE_TO_PREVIEW":{
-            "简体中文": "由于你目前正在预览环境之中，评论功能暂时被禁用了。当你的站点被从互联网访问时，评论系统会正常地显示在这里。",
-            "English": "Comment function banned because you are now in the preview environment. When the site is visited from the Internet, the comment system will be available here."
-          }
-        }
 
       function preview_env_public_comment_fix(){
         if(window.location.href.indexOf("localhost") !== -1 || window.location.href.indexOf("127.0.0.1") !== -1){
           if(blog["全局评论设置"]["valine设置"]["是否使用bbg公共评论服务"]){
-            document.getElementById("vcomments").innerHTML = `<p style="color:red;">${langdata["COMMENT_UNAVAILABLE_DUE_TO_PREVIEW"][lang_name]}</p>`;
+            document.getElementById("vcomments").innerHTML = `<p style="color:red;">由于你目前正在预览环境之中，评论功能暂时被禁用了。当你的站点被从互联网访问时，评论系统会正常地显示在这里。</p>`;
           }
         }
       }
@@ -582,20 +424,19 @@
         console.log("reset ok");
       }
       function render_nav(isIndexPage) {
-        //todo: fix router
         let nav_base = `<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" id="navbar">
   <div class="container-fluid">
-    <a class="navbar-brand" id="navbar_title" href="./index.html">${blog["博客标题"]}</a>
+    <a class="navbar-brand" id="navbar_title" href="#top" onclick="enter_indexPage();">${blog["博客标题"]}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar_items">
         <li class="nav-item">
-          <a class="nav-link" href="./index.html?type=internal&function=article_list">${langdata["ARTICLE_LIST"][lang_name]}</a>
+          <a class="nav-link" href="#top" onclick="enter_indexPage();">文章列表</a>
         </li>
-        <li class="nav-item" id="navbar_archive_and_tags">
-          <a class="nav-link" href="./index.html?type=internal&function=archive_and_tags">${langdata["ARCHIVE_AND_TAGS"][lang_name]}</a>
+        <li class="nav-item" id="navbar_archive_and_tags" onclick="enter_archive_and_tags()">
+          <a class="nav-link" href="#top">归档和标签</a>
         </li>
       </ul>
     </div>
@@ -620,20 +461,11 @@
             if (blog["页面列表"][i]["是否显示在菜单中"]) {
               document.querySelector("#navbar_items").innerHTML += `
                         <li class="nav-item">
-                            <a class="nav-link" href="./index.html?type=page&filename=${blog["页面列表"][i]["文件名"]}">${blog["页面列表"][i]["若显示在菜单中，则在菜单中显示为"]}</a>
+                            <a class="nav-link" href="#top" onclick="enter_page(${i});">${blog["页面列表"][i]["若显示在菜单中，则在菜单中显示为"]}</a>
                         </li>
                         `;
             }
           }
-        }
-
-        if(blog["启用内建友人帐页面"] === true){
-            document.querySelector("#navbar_items").innerHTML += `
-                        <li class="nav-item">
-                            <a class="nav-link" href="./index.html?type=internal&function=friendbook">友人帐</a>
-                        </li>
-            `;
-
         }
 
         if (blog["菜单中的外部链接"].length === 0) {
@@ -687,19 +519,7 @@
       function render_index_title_info() {
         document.querySelector(
           "#container"
-        ).innerHTML += `<br /><h1 id="blog_index_title">${blog["博客标题"]}</h1><p id="blog_index_subtitle">${blog["博客描述（副标题）"]}</p><hr />
-        `;
-
-        if(blog["启用网站公告"] === true){
-          document.querySelector("#container").innerHTML +=`
-          
-          <div class="article-item">
-          <h3><i class="fa fa-bullhorn" aria-hidden="true"></i> 网站公告</h3>
-          ${blog["网站公告"]}
-        
-        </div>
-          `
-        }
+        ).innerHTML += `<br /><h1>${blog["博客标题"]}</h1><p>${blog["博客描述（副标题）"]}</p><hr />`;
       }
 
       function render_article_list() {
@@ -708,7 +528,7 @@
             document.querySelector("#container").innerHTML += `
                     <div class="article-item" id="article-item-${i}">
                         <div class="article-item-sub"><i class="fa fa-thumb-tack"></i> 置顶文章</div>
-                        <h2><a href="./index.html?type=article&filename=${blog["文章列表"][i]["文件名"]}">${blog["文章列表"][i]["文章标题"]}</a></h2>
+                        <h2><a href="#" onclick="enter_article(${i});">${blog["文章列表"][i]["文章标题"]}</a></h2>
                        
                         
                     </div>
@@ -724,7 +544,7 @@
           } else {
             document.querySelector("#container").innerHTML += `
                     <div class="article-item" id="article-item-${i}">
-                        <h2><a href="./index.html?type=article&filename=${blog["文章列表"][i]["文件名"]}">${blog["文章列表"][i]["文章标题"]}</a></h2>
+                        <h2><a href="#" onclick="enter_article(${i});">${blog["文章列表"][i]["文章标题"]}</a></h2>
                        
                         
                     </div>
@@ -735,18 +555,18 @@
                             `;
 
             document.querySelector("#article-item-sub-" + i).innerHTML += `
-                            <i class="fa fa-calendar"></i> ${langdata["ARTICLE_CREATEDAT"][lang_name]}${blog["文章列表"][i]["创建日期"]}，<i class="fa fa-clock-o"></i> ${langdata["LASTMODIFIEDAT"][lang_name]}${blog["文章列表"][i]["修改日期"]}<br />
+                            <i class="fa fa-calendar"></i> 此文章编写于${blog["文章列表"][i]["创建日期"]}，<i class="fa fa-clock-o"></i> 最近修改于${blog["文章列表"][i]["修改日期"]}<br />
                         `;
 
             if (blog["文章列表"][i]["标签"].length === 0) {
             } else {
               document.querySelector("#article-item-sub-" + i).innerHTML += `
-                            <i class="fa fa-tags"></i> ${langdata["TAGS"][lang_name]}
+                            <i class="fa fa-tags"></i> 标签：
                             `;
 
               for (let k = 0; k < blog["文章列表"][i]["标签"].length; k++) {
                 document.querySelector("#article-item-sub-" + i).innerHTML += `
-                                <a class="btn btn-light btn-sm" href="./index.html?type=internal&function=tag&argument=${blog["文章列表"][i]["标签"][k]}">${blog["文章列表"][i]["标签"][k]}</a>
+                                <button class="btn btn-light btn-sm" onclick="enter_tag('${blog["文章列表"][i]["标签"][k]}')">${blog["文章列表"][i]["标签"][k]}</button>
                                 `;
               }
             }
@@ -759,23 +579,11 @@
       }
 
       function render_article_content(article_id) {
-
-        if(blog["启用网站公告"] === true && blog["网站公告仅在首页显示"] === false){
-          document.querySelector("#container").innerHTML += `
-          <div class="alert alert-primary">
-
-            <i class="fa fa-bullhorn" aria-hidden="true"></i> 公告： ${blog["网站公告"]}
-</div>
-          `
-        }
-
         document.querySelector("#container").innerHTML += `
-        
-        
             <div class="article-content" id="article-content">
                 <h2> ${blog["文章列表"][article_id]["文章标题"]}</h2>
                 <div id="article-content-sub" class="article-content-sub">
-                    <i class="fa fa-calendar"></i> ${langdata["ARTICLE_CREATEDAT"][lang_name]}${blog["文章列表"][article_id]["创建日期"]}，<i class="fa fa-clock-o"></i> ${langdata["LASTMODIFIEDAT"][lang_name]}${blog["文章列表"][article_id]["修改日期"]}
+                    <i class="fa fa-calendar"></i> 此文章编写于${blog["文章列表"][article_id]["创建日期"]}，<i class="fa fa-clock-o"></i> 最近修改于${blog["文章列表"][article_id]["修改日期"]}
                 </div>
             </div>
             `;
@@ -783,7 +591,7 @@
         if (blog["文章列表"][article_id]["标签"].length === 0) {
         } else {
           document.querySelector("#article-content-sub").innerHTML += `
-        <br /><i class="fa fa-tags"></i> ${langdata["TAGS"][lang_name]}
+        <br /><i class="fa fa-tags"></i> 标签：
         `;
 
           for (
@@ -791,9 +599,8 @@
             k < blog["文章列表"][article_id]["标签"].length;
             k++
           ) {
-            //todo:fix router 2
             document.querySelector("#article-content-sub").innerHTML += `
-            <a class="btn btn-light btn-sm" href="./index.html?type=internal&function=tag&argument=${blog["文章列表"][article_id]["标签"][k]}">${blog["文章列表"][article_id]["标签"][k]}</a>
+            <button class="btn btn-light btn-sm" onclick="enter_tag('${blog["文章列表"][article_id]["标签"][k]}')">${blog["文章列表"][article_id]["标签"][k]}</button>
             `;
           }
         }
@@ -811,7 +618,7 @@
           )
           .then(function (response) {
             document.querySelector("#article-content").innerHTML +=
-              marked.parse(response.data);
+              markdown.toHTML(response.data);
 
             if (window.location.href.indexOf("?") === -1) {
               forever_url = `${window.location.href
@@ -839,11 +646,11 @@
             }
 
             document.querySelector(
-              "#article-content"
+              "#container"
             ).innerHTML += `<br />
 
             <div class="alert alert-info" role="alert">
-              <i class="fa fa-smile-o"></i> ${langdata["FOREVER_LINK_PART1"][lang_name]}<a href="${forever_url}">${forever_url}</a>${langdata["FOREVER_LINK_PART2"][lang_name]}
+              <i class="fa fa-smile-o"></i> 本页面的永久链接是：<a href="${forever_url}">${forever_url}</a>，你可以使用此链接将本页面分享给其它人。
             </div>`;
 
             if (
@@ -851,12 +658,11 @@
               blog["文章列表"][article_id]["启用评论"]
             ) {
               document.querySelector(
-                "#container"
-              ).innerHTML += `<div class="bbg-comment-area"><h3><i class="fa fa-comments-o"></i> 在此文章 《${blog["文章列表"][article_id]["文章标题"]}》 下评论：</h3><br /><div id="vcomments"></div></div>`;
+                "#article-content"
+              ).innerHTML += `<br /><br /><hr /><h3><i class="fa fa-comments-o"></i> 在此文章 《${blog["文章列表"][article_id]["文章标题"]}》 下评论：</h3><br /><div id="vcomments"></div>`;
             }
 
             render_bottom_information();
-            execute_custom_js();
 
             if (
               blog["全局评论设置"]["启用valine评论"] &&
@@ -878,89 +684,6 @@
 
 
           });
-      }
-      
-      function render_friend_book_friend(listid,name,url,icon,description){
-            document.getElementById(listid).innerHTML +=`
-                <div class="card friend-card mb-3">
-                
-                <div class="row">
-    <div class="col-md-4" >
-      <img src="${icon}" class="img-fluid rounded-start">
-    </div>
-    <div class="col-md-8" >
-      <div class="card-body">
-        <h5 class="card-title"><a target="_blank" href="${url}">${name}</a></h5>
-        <p class="card-text">${description}</p>
-      </div>
-    </div>
-    
-  </div>
-<br />
-                
-                `;
-      }
-
-      function render_friend_book(){
-            document.querySelector("#container").innerHTML += `
-            <div class="page-content">
-                <h2>友人帐</h2>
-                <hr />
-                <p>${blog["友人帐页面附加信息"]}</p>
-                
-                  <div class="row">
-    <div class="col" id="friend_book_list1">
-      
-    </div>
-    <div class="col" id="friend_book_list2">
-      
-    </div>
-    <div class="col" id="empty_friend_book_list">
-      
-    </div>
-
-  </div>
-  </div>
-            `;
-            
-            
-            let numberInFriendListOne = Math.ceil(blog["友人帐"].length/2);
-            
-            
-            
-            for(let i=0;i<numberInFriendListOne;i++){
-                render_friend_book_friend("friend_book_list1",blog["友人帐"][i]["名称"],blog["友人帐"][i]["链接"],blog["友人帐"][i]["图标"],blog["友人帐"][i]["简介"])
-            }
-            
-            for(let i=numberInFriendListOne;i<blog["友人帐"].length;i++){
-            render_friend_book_friend("friend_book_list2",blog["友人帐"][i]["名称"],blog["友人帐"][i]["链接"],blog["友人帐"][i]["图标"],blog["友人帐"][i]["简介"])
-            }
-            
-                        if (
-              blog["全局评论设置"]["启用valine评论"] &&
-              blog["友人帐页面允许评论"]
-            ) {
-              document.querySelector(
-                "#container"
-              ).innerHTML += `<div class="bbg-comment-area"><h3><i class="fa fa-comments-o"></i> 在友人帐中评论：</h3><br /><div id="vcomments"></div></div>`;
-            }
-            render_bottom_information();
-            execute_custom_js();
-            if (
-              blog["全局评论设置"]["启用valine评论"] &&
-              blog["友人帐页面允许评论"]
-            ) {
-              new Valine({
-                el: "#vcomments",
-                appId: blog["全局评论设置"]["valine设置"]["leancloud_appid"],
-                appKey: blog["全局评论设置"]["valine设置"]["leancloud_appkey"],
-                path:
-                  comment_authcode +
-                  "internal=friendbook"
-              });
-
-              preview_env_public_comment_fix();
-            }
       }
 
       function getTagTree() {
@@ -993,11 +716,8 @@
       function render_tag_tree() {
         //todo：考虑没有任何标签的情况
 
-        totalTagTreeArticleLength = 0;
-
         let tagtree = getTagTree();
 
-        document.getElementById("container").innerHTML+= `<div class="tag-content" id="tag-content"></div>`;
         //分析标签树
 
         for (let i = 0; i < getTagTreeLength(); i++) {
@@ -1005,7 +725,7 @@
 
           // 渲染标签名字
           document.querySelector(
-            "#tag-content"
+            "#container"
           ).innerHTML += `<h2><i class="fa fa-tags"></i> ${
             Object.keys(tagtree)[i]
           }</h2>`;
@@ -1017,107 +737,39 @@
               // 因为 enter_article函数的参数是index.json中的文章列表array的下标，因此必须要获取到。
               if (tagtree[Object.keys(tagtree)[i]][k] === blog["文章列表"][j]) {
                 document.querySelector(
-                  "#tag-content"
-                ).innerHTML += `<p><i class="fa fa-file-text-o"></i> <a href="./index.html?type=article&filename=${blog["文章列表"][j]["文件名"]}">${
+                  "#container"
+                ).innerHTML += `<p><i class="fa fa-file-text-o"></i> <a href="#" onclick="enter_article(${j})">${
                   tagtree[Object.keys(tagtree)[i]][k]["文章标题"]
-                }</a>（<i class="fa fa-calendar"></i> ${langdata["ARTICLE_CREATEDAT"][lang_name]}${
+                }</a>（<i class="fa fa-calendar"></i> 创建于${
                   tagtree[Object.keys(tagtree)[i]][k]["创建日期"]
-                }，<i class="fa fa-clock-o"></i> ${langdata["LASTMODIFIEDAT"][lang_name]}${
+                }，<i class="fa fa-clock-o"></i> 修改于${
                   tagtree[Object.keys(tagtree)[i]][k]["修改日期"]
                 }）</p>`;
-
-                totalTagTreeArticleLength = totalTagTreeArticleLength + 1;
               }
             }
           }
         }
-
-        if(getTagTreeLength() === 0){
-          document.querySelector("#tag-content").innerHTML += `
-          <h3><i class="fa fa-tags"></i> 未分类文章</h3>
-
-          `;
-
-          for(let i=0;i<blog["文章列表"].length;i++){
-            document.querySelector("#tag-content").innerHTML += `
-            <p><i class="fa fa-file-text-o"></i> <a href="./index.html?type=article&filename=${blog["文章列表"][i]["文件名"]}">${blog["文章列表"][i]["文章标题"]}</a>
-              
-              （
-              <i class="fa fa-calendar"></i> ${langdata["ARTICLE_CREATEDAT"][lang_name]}
-              ${blog["文章列表"][i]["创建日期"]}，
-              <i class="fa fa-clock-o"></i> ${langdata["LASTMODIFIEDAT"][lang_name]}
-              ${blog["文章列表"][i]["修改日期"]}
-              
-              ）
-              
-              </p>
-
-          `;
-          }
-        }else{
-          if(totalTagTreeArticleLength < blog["文章列表"].length){
-            document.getElementById("tag-content").innerHTML += `
-            <h3><i class="fa fa-tags"></i> 未分类文章</h3>
-            `;
-
-            for(let i=0;i<blog["文章列表"].length;i++){
-              if(blog["文章列表"][i]["标签"].length === 0 || blog["文章列表"][i]["标签"] === false ||blog["文章列表"][i]["标签"] === "" || blog["文章列表"][i]["标签"] === undefined || blog["文章列表"][i]["标签"] === null){
-                document.querySelector("#tag-content").innerHTML += `
-            <p><i class="fa fa-file-text-o"></i> <a href="./index.html?type=article&filename=${blog["文章列表"][i]["文件名"]}">${blog["文章列表"][i]["文章标题"]}</a>
-              
-              （
-              <i class="fa fa-calendar"></i> ${langdata["ARTICLE_CREATEDAT"][lang_name]}
-              ${blog["文章列表"][i]["创建日期"]}，
-              <i class="fa fa-clock-o"></i> ${langdata["LASTMODIFIEDAT"][lang_name]}
-              ${blog["文章列表"][i]["修改日期"]}
-              
-              ）
-              
-              </p>
-
-          `;
-              }
-            }
-          }
-        }
-
       }
 
       function render_tag(tagname) {
-
-        document.getElementById("container").innerHTML+=`<div class="tag-content" id="tag-content"></div>`;
         document.querySelector(
-          "#tag-content"
+          "#container"
         ).innerHTML += `<h2><i class="fa fa-tags"></i> 标签为 ${tagname} 下的文章</h2>`;
         let tagtree = getTagTree();
         for (let i = 0; i < tagtree[tagname].length; i++) {
           for (let j = 0; j < blog["文章列表"].length; j++) {
             if (tagtree[tagname][i] === blog["文章列表"][j]) {
               document.querySelector(
-                "#tag-content"
-              ).innerHTML += `<p><i class="fa fa-file-text-o"></i> <a href="./index.html?type=article&filename=${blog["文章列表"][j]["文件名"]}">${tagtree[tagname][i]["文章标题"]}</a>（<i class="fa fa-calendar"></i> ${langdata["ARTICLE_CREATEDAT"][lang_name]}${tagtree[tagname][i]["创建日期"]}，<i class="fa fa-clock-o"></i> ${langdata["LASTMODIFIEDAT"][lang_name]}${tagtree[tagname][i]["修改日期"]}）</p>`;
+                "#container"
+              ).innerHTML += `<p><i class="fa fa-file-text-o"></i> <a href="#" onclick="enter_article(${j})">${tagtree[tagname][i]["文章标题"]}</a>（<i class="fa fa-calendar"></i> 创建于${tagtree[tagname][i]["创建日期"]}，<i class="fa fa-clock-o"></i> 修改于${tagtree[tagname][i]["修改日期"]}）</p>`;
             }
           }
         }
       }
 
       function render_page(page_id) {
-
-        if(blog["启用网站公告"] === true && blog["网站公告仅在首页显示"] === false){
-          document.querySelector("#container").innerHTML += `
-          <div class="alert alert-primary">
-
-            <i class="fa fa-bullhorn" aria-hidden="true"></i> 公告： ${blog["网站公告"]}
-</div>
-          `
-        }
-
         document.querySelector(
           "#container"
-        ).innerHTML += `<div class="page-content" id="page-content"></div>`
-
-        document.querySelector(
-          "#page-content"
         ).innerHTML += `<h2>${blog["页面列表"][page_id]["页面标题"]}</h2><hr />`;
 
         axios
@@ -1128,7 +780,7 @@
               Date.parse(new Date())
           )
           .then(function (response) {
-            document.querySelector("#page-content").innerHTML += marked.parse(
+            document.querySelector("#container").innerHTML += markdown.toHTML(
               response.data
             );
 
@@ -1158,7 +810,7 @@
             document.querySelector(
               "#container"
             ).innerHTML += `<br /><div class="alert alert-info" role="alert">
-              <i class="fa fa-smile-o"></i> ${langdata["FOREVER_LINK_PART1"][lang_name]}<a href="${forever_url}">${forever_url}</a>${langdata["FOREVER_LINK_PART2"][lang_name]}
+              <i class="fa fa-smile-o"></i> 本页面的永久链接是：<a href="${forever_url}">${forever_url}</a>，你可以使用此链接将本页面分享给其它人。
             </div>`;
 
             // 评论
@@ -1169,10 +821,9 @@
             ) {
               document.querySelector(
                 "#container"
-              ).innerHTML += `<div class="bbg-comment-area"><h3><i class="fa fa-comments-o"></i> 在此页面 《${blog["页面列表"][page_id]["页面标题"]}》 下评论：</h3><br /><div id="vcomments"></div></div>`;
+              ).innerHTML += `<br /><br /><hr /><h3><i class="fa fa-comments-o"></i> 在此页面 《${blog["页面列表"][page_id]["页面标题"]}》 下评论：</h3><br /><div id="vcomments"></div>`;
             }
             render_bottom_information();
-            execute_custom_js();
             if (
               blog["全局评论设置"]["启用valine评论"] &&
               blog["页面列表"][page_id]["启用评论"]
@@ -1238,32 +889,18 @@
         document.getElementById("container").innerHTML += `
             <hr />
             <div style="color:grey">
-                ${marked.parse(blog["底部信息（格式为markdown）"])}
+                ${markdown.toHTML(blog["底部信息（格式为markdown）"])}
             </div>
             
             `;
-      }
-
-      function execute_custom_js(){
-        if(blog["启用自定义JS"] === true){
-          eval(blog["自定义JS"]);
-        }
       }
 
       function enter_tag(tagname) {
         resetPage();
         render_nav(false);
         render_container();
-        render_tag(decodeURIComponent(tagname));
+        render_tag(tagname);
         render_bottom_information();
-        execute_custom_js();
-      }
-
-      function enter_friend_book(){
-        resetPage();
-        render_nav(false);
-        render_container();
-        render_friend_book();
       }
 
       function enter_archive_and_tags() {
@@ -1272,7 +909,6 @@
         render_container();
         render_tag_tree();
         render_bottom_information();
-        execute_custom_js();
       }
 
       function enter_indexPage() {
@@ -1282,7 +918,6 @@
         render_index_title_info();
         render_article_list();
         render_bottom_information();
-        execute_custom_js();
       }
 
       function enter_article(article_id) {
@@ -1304,26 +939,11 @@
         return false;
       }
 
-      function importCSSFile(uri) {
-        let css = document.createElement('link');
-        css.setAttribute('rel','stylesheet');
-        css.setAttribute('href',uri);
-        document.getElementsByTagName('head')[0].appendChild(css);
-      }
       axios
         .get("./data/index.json?timestamp=" + Date.parse(new Date()))
         .then(function (response) {
           blog = response.data;
-          
-          let cdn_path = blog["CDN路径"];
 
-          // js importing disabled due to execution order is inevitable, while css importing can safely operate.
-
-          importCSSFile(cdn_path + "/bootstrap@5.0.2/dist/css/bootstrap.min.css");
-          importCSSFile(cdn_path + "/font-awesome@4.7.0/css/font-awesome.min.css");
-          
-          lang_name = blog["网站语言"];
-          
           if (blog["全局评论设置"]["valine设置"]["是否使用bbg公共评论服务"]) {
             if (window.location.href.indexOf("?") === -1) {
               comment_authcode = `domain=${window.location.href
@@ -1370,15 +990,7 @@
             }
           }
 
-          // 自定义css载入
-
-          if(blog["启用自定义CSS"] === true){
-            document.getElementById("custom_css").innerHTML= blog["自定义CSS"];
-          }
-
-          if(getUrlArgs("type") === false){
-            enter_indexPage();
-          }
+          enter_indexPage();
 
           if (getUrlArgs("type") === "article") {
             let article_filename = getUrlArgs("filename");
@@ -1398,31 +1010,9 @@
             }
           }
 
-          if (getUrlArgs("type") === "internal") {
-            let internal_function = getUrlArgs("function");
-            let internal_function_argument = getUrlArgs("argument");
-
-            if(internal_function === "article_list"){
-              enter_indexPage();
-            }
-            if(internal_function === "archive_and_tags"){
-              enter_archive_and_tags();
-            }
-
-            if(internal_function === "tag"){
-              enter_tag(internal_function_argument);
-            }
-
-            if(internal_function === "friendbook"){
-                enter_friend_book();
-            }
-          }
-
           document.getElementsByTagName("title")[0].innerHTML =
             blog["博客标题"];
         });
-
-        
     </script>
   </body>
 </html>
