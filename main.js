@@ -9,8 +9,9 @@ function createWindow() {
         width: 1200,
         height: 600,
         webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false
+            contextIsolation: false,
+            nodeIntegration: true, // 是否集成 Nodejs
+            enableRemoteModule: true  // 这句必须要有,否则 require("electron").remote.BrowserWindow;是空
         }
     })
 
