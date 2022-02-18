@@ -86,7 +86,7 @@ public:
 
 
 
-## 轮转数组
+## 2.轮转数组
 
 给你一个数组，将数组中的元素向右轮转 k 个位置，其中 k 是非负数。
 
@@ -161,3 +161,195 @@ public:
 
 };
 
+
+
+## 3.移动零
+
+给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+
+请注意 ，必须在不复制数组的情况下原地对数组进行操作。
+
+ 
+
+示例 1:
+
+输入: nums = [0,1,0,3,12]
+输出: [1,3,12,0,0]
+
+示例 2:
+
+输入: nums = [0]
+输出: [0]
+
+## 思路
+
+思路及解法
+
+使用双指针，左指针指向当前已经处理好的序列的尾部，右指针指向待处理序列的头部。
+
+右指针不断向右移动，每次右指针指向非零数，则将左右指针对应的数交换，同时左指针右移。
+
+注意到以下性质：
+
+    左指针左边均为非零数；
+    
+    右指针左边直到左指针处均为零。
+
+因此每次交换，都是将左指针的零与右指针的非零数交换，且非零数的相对顺序并未改变。
+
+## 代码
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int n = nums.size(), left = 0, right = 0;
+        while (right < n) {
+            if (nums[right]) {
+                swap(nums[left], nums[right]);
+                left++;
+            }
+            right++;
+        }
+    }
+};
+
+## 4. 两数之和 II - 输入有序数组
+
+给你一个下标从 1 开始的整数数组 numbers ，该数组已按 非递减顺序排列  ，请你从数组中找出满足相加之和等于目标数 target 的两个数。如果设这两个数分别是 numbers[index1] 和 numbers[index2] ，则 1 <= index1 < index2 <= numbers.length 。
+
+以长度为 2 的整数数组 [index1, index2] 的形式返回这两个整数的下标 index1 和 index2。
+
+你可以假设每个输入 只对应唯一的答案 ，而且你 不可以 重复使用相同的元素。
+
+你所设计的解决方案必须只使用常量级的额外空间。
+
+
+示例 1：
+
+输入：numbers = [2,7,11,15], target = 9
+输出：[1,2]
+解释：2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。返回 [1, 2] 。
+
+示例 2：
+
+输入：numbers = [2,3,4], target = 6
+输出：[1,3]
+解释：2 与 4 之和等于目标数 6 。因此 index1 = 1, index2 = 3 。返回 [1, 3] 。
+
+## 代码
+
+class Solution {
+
+public:
+
+  vector<int> twoSum(vector<int>& numbers, int target) {
+
+​    int index_low=0;
+
+​    int index_high=numbers.size()-1;
+
+
+
+​    vector<int> result(2);
+
+
+
+​    int temp=0;
+
+​    while(index_low<index_high){
+
+
+
+​      temp=target-numbers[index_low];
+
+
+
+  
+
+​      while(numbers[index_high]>temp){
+
+​        index_high--;
+
+​      }
+
+
+
+​      if(numbers[index_high]==temp){
+
+​        break;
+
+​      }
+
+
+
+​      index_low++;
+
+
+
+​    }
+
+
+
+​    result[0]=++index_low;
+
+​    result[1]=++index_high;
+
+
+
+​    return result;
+
+
+
+  }
+
+};
+
+## 反转字符串
+
+编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。
+
+不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
+
+ 
+
+示例 1：
+
+输入：s = ["h","e","l","l","o"]
+输出：["o","l","l","e","h"]
+
+示例 2：
+
+输入：s = ["H","a","n","n","a","h"]
+输出：["h","a","n","n","a","H"]
+
+## 思路
+
+这题比较简单，就是一个双指针，熟悉swap函数
+
+## 代码
+
+class Solution {
+
+public:
+
+  void reverseString(vector<char>& s) {
+
+​    int index_low=0;
+
+​    int index_high=s.size()-1;
+
+
+
+​    while(index_low<index_high){
+
+​      swap(s[index_low],s[index_high]);
+
+​      index_low++;
+
+​      index_high--;
+
+​    }
+
+  }
+
+};
