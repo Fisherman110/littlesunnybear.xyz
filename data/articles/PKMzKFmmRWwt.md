@@ -36,6 +36,7 @@
 
 ## 代码：
 
+```c++
 class Solution {
 
 public:
@@ -81,8 +82,7 @@ public:
   }
 
 };
-
-
+```
 
 
 
@@ -127,6 +127,7 @@ public:
 
 ## 代码
 
+```c++
 class Solution {
 
 public:
@@ -146,7 +147,6 @@ public:
   }
 
 
-
   void rotate(vector<int>& nums, int k) {
 
 ​    k %= nums.size();
@@ -160,6 +160,11 @@ public:
   }
 
 };
+```
+
+
+
+
 
 
 
@@ -199,6 +204,7 @@ public:
 
 ## 代码
 
+```c++
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
@@ -212,6 +218,9 @@ public:
         }
     }
 };
+```
+
+
 
 ## 4. 两数之和 II - 输入有序数组
 
@@ -238,6 +247,7 @@ public:
 
 ## 代码
 
+```c++
 class Solution {
 
 public:
@@ -262,17 +272,11 @@ public:
 
 ​      temp=target-numbers[index_low];
 
-
-
-  
-
 ​      while(numbers[index_high]>temp){
 
 ​        index_high--;
 
 ​      }
-
-
 
 ​      if(numbers[index_high]==temp){
 
@@ -303,8 +307,11 @@ public:
   }
 
 };
+```
 
-## 反转字符串
+
+
+## 5.反转字符串
 
 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。
 
@@ -328,6 +335,7 @@ public:
 
 ## 代码
 
+```c++
 class Solution {
 
 public:
@@ -353,3 +361,51 @@ public:
   }
 
 };
+```
+
+
+
+
+
+## 6.反转字符串中的单词
+
+给定一个字符串 s ，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
+
+ 
+
+示例 1：
+
+输入：s = "Let's take LeetCode contest"
+输出："s'teL ekat edoCteeL tsetnoc"
+
+示例 2:
+
+输入： s = "God Ding"
+输出："doG gniD"
+
+```c++
+class Solution {
+public:
+
+    string reverseWords(string s) {
+        int n=s.size();
+        int begin=0,end;
+        for(int i=0;i<n+1;i++)
+        {
+           if(s[i]==' '||s[i]=='\0')
+           {
+               for(end=i-1;begin<end;begin++,end--)
+               {
+                   swap(s[begin],s[end]);
+               }
+               begin=i+1;
+           }
+        }
+        
+        return s;
+    }
+
+ 
+};
+```
+
