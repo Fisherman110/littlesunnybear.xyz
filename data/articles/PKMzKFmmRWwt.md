@@ -409,3 +409,131 @@ public:
 };
 ```
 
+## 7.链表的中间节点
+
+给定一个头结点为 head 的非空单链表，返回链表的中间结点。
+
+如果有两个中间结点，则返回第二个中间结点。
+
+ 
+
+示例 1：
+
+输入：[1,2,3,4,5]
+输出：此列表中的结点 3 (序列化形式：[3,4,5])
+返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。
+注意，我们返回了一个 ListNode 类型的对象 ans，这样：
+ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next = NULL.
+
+### 思路：思路：快指针q每次走2步，慢指针p每次走1步，当q走到末尾时p正好走到中间
+
+### 代码：(这道题不难，但是如果不知道使用快慢指针的话，就必须先遍历链表)
+
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        //头节点是有值的
+        //cout<<head->val<<endl;
+
+        ListNode* slow_node=head;
+        ListNode* fast_node=head;
+        ListNode* temp_node=NULL;
+
+        while(fast_node->next!=NULL){
+            temp_node=fast_node;
+            fast_node=temp_node->next;
+
+            temp_node=slow_node;
+            slow_node=temp_node->next;
+
+            if(fast_node->next!=NULL){
+                temp_node=fast_node;
+                fast_node=temp_node->next;
+
+            }
+            
+        }
+        //cout<<sizeof(head)<<endl;
+        return slow_node;
+    }
+};
+```
+
+## 8.删除链表倒数第N结点
+
+给你一个链表，删除链表的倒数第 `n` 个结点，并且返回链表的头结点。
+
+输入：head = [1,2,3,4,5], n = 2
+输出：[1,2,3,5]
+
+示例 2：
+
+输入：head = [1], n = 1
+输出：[]
+
+### 思想：
+
+快慢指针，快指针比慢指针快n-1步，主要考虑只有一个结点的情况和可能出现删除头结点的情况
+
+### 代码：
+
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* fast_node=head;
+        ListNode* slow_node=head;
+        ListNode* temp_node=head;
+        ListNode* temp_slow_node=head;
+
+        if(head->next==NULL){
+            return NULL;
+        }
+
+        for(int i=1;i<n;i++){
+            temp_node=fast_node;
+            fast_node=temp_node->next;
+
+        }
+        while(fast_node->next!=NULL){
+            temp_node=fast_node;
+            fast_node=temp_node->next;
+
+            temp_slow_node=slow_node;
+            slow_node=temp_slow_node->next;
+        }
+        //temp_node=slow_node->next;
+        temp_slow_node->next=slow_node->next;
+        //if(temp_slow_node->next->next==NULL) temp_slow_node->next=NULL;
+        //cout<<slow_node->val<<endl;
+        if(slow_node==head){
+            head=slow_node->next;
+        }
+        delete(slow_node);
+        return head;
+
+    }
+};
+```
+
