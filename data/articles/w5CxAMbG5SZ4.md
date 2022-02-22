@@ -144,3 +144,178 @@ public:
 
 ```
 
+### 合并二叉树
+
+给你两棵二叉树： root1 和 root2 。
+
+想象一下，当你将其中一棵覆盖到另一棵之上时，两棵树上的一些节点将会重叠（而另一些不会）。你需要将这两棵树合并成一棵新二叉树。合并的规则是：如果两个节点重叠，那么将这两个节点的值相加作为合并后节点的新值；否则，不为 null 的节点将直接作为新二叉树的节点。
+
+返回合并后的二叉树。
+
+注意: 合并过程必须从两个树的根节点开始。
+
+示例 1：
+
+输入：root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]
+输出：[3,4,5,5,4,null,7]
+
+示例 2：
+
+输入：root1 = [1], root2 = [1,2]
+输出：[2,2]
+
+### 思路:     
+
+采用深度优先搜索次序进行合并，注意考虑头结点为空的情况，合并过程遇到空节点的情况。注意指针的使用
+
+### 代码：
+
+```c++
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
+    
+
+        if(root1==NULL && root2!=NULL){
+            return root2;
+        }else if(root1!=NULL && root2==NULL){
+            return root1;
+        }else{
+            merge(root1,root2);
+            return root2;
+        }
+        
+
+    }
+
+    void merge(TreeNode* root1,TreeNode* root2){
+
+        
+        if( root1!=NULL && root2!=NULL){
+            root2->val+=root1->val;
+
+            
+            if(root1->left!=NULL && root2->left!=NULL) merge(root1->left,root2->left);
+            if(root1->right!=NULL && root2->right!=NULL) merge(root1->right,root2->right);
+
+            if(root2->left ==NULL && root1->left!=NULL) {
+                root2->left=root1->left;
+            }
+            
+             if(root2->right==NULL && root1->right!=NULL){
+                root2->right=root1->right;
+            }
+            
+            //cout<<"world"<<endl;            
+        }
+
+    }
+
+```
+
+### 填充每个节点的下一个右侧节点指针
+
+给定一个 完美二叉树 ，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
+
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
+}
+
+填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
+
+初始状态下，所有 next 指针都被设置为 NULL。
+
+ 
+
+示例 1：
+
+输入：root = [1,2,3,4,5,6,7]
+输出：[1,#,2,3,#,4,5,6,7,#]
+解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。序列化的输出按层序遍历排列，同一层节点由 next 指针连接，'#' 标志着每一层的结束。
+
+示例 2:
+
+输入：root = []
+输出：[]
+
+### 思路：
+
+从根节点开始，进行层次遍历，每一层遍历过程中把下一层串成一串。到叶节点直接不做操作结束。一定要熟悉指针的定义和操作。
+
+### 代码：
+
+```c++
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+*/
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+
+        if(root==NULL){
+            return NULL;
+        }
+
+        root->next=NULL;
+        //root->left->next=root->right;
+
+        linker(root);
+        return root;
+        
+    }
+
+    void linker(Node *node){
+
+        //非叶节点
+        if(node->left!=NULL){
+             Node *temp;
+             Node *next_turn;
+
+            next_turn=node->left;
+             
+             while((temp=node->next)!=NULL){
+
+                 node->left->next=node->right;
+                 node->right->next=node->next->left;
+                 
+                 node=temp;
+             }
+             node->left->next=node->right;
+             node->right->next=NULL;
+
+             linker(next_turn);
+        }
+       
+    }
+};
+```
+
