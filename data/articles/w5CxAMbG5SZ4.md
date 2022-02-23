@@ -319,3 +319,185 @@ public:
 };
 ```
 
+### 矩阵
+
+给定一个由 0 和 1 组成的矩阵 mat ，请输出一个大小相同的矩阵，其中每一个格子是 mat 中对应位置元素到最近的 0 的距离。
+
+两个相邻元素间的距离为 1 。
+
+ 
+
+示例 1：
+
+输入：mat = [[0,0,0],[0,1,0],[0,0,0]]
+输出：[[0,0,0],[0,1,0],[0,0,0]]
+
+示例 2：
+
+输入：mat = [[0,0,0],[0,1,0],[1,1,1]]
+输出：[[0,0,0],[0,1,0],[1,2,1]]
+
+**思路：** 使用一个队列存储0元素的坐标，对这个队列的每一个元素进行广度优先搜索，搜索到的点记录距离，把搜索到的点加入队列，一直搜索到队列为空为止。(关键点，用队列存储元素为0的点，对这个队列的每一个元素进行广度优先搜索，搜索到的点加入队列，计算距离并记录，直到队列为空)
+
+### 代码：
+
+```c++
+class Solution {
+private:
+    static constexpr int dirs[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& matrix) {
+        int m = matrix.size(), n = matrix[0].size();
+        vector<vector<int>> dist(m, vector<int>(n));
+        vector<vector<int>> seen(m, vector<int>(n));
+        queue<pair<int, int>> q;
+        // 将所有的 0 添加进初始队列中
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (matrix[i][j] == 0) {
+                    q.emplace(i, j);
+                    seen[i][j] = 1;
+                }
+            }
+        }
+
+        // 广度优先搜索
+        while (!q.empty()) {
+            auto [i, j] = q.front();
+            q.pop();
+            for (int d = 0; d < 4; ++d) {
+                int ni = i + dirs[d][0];
+                int nj = j + dirs[d][1];
+                if (ni >= 0 && ni < m && nj >= 0 && nj < n && !seen[ni][nj]) {
+                    dist[ni][nj] = dist[i][j] + 1;
+                    q.emplace(ni, nj);
+                    seen[ni][nj] = 1;
+                }
+            }
+        }
+
+        return dist;
+    }
+};
+
+```
+
+### 腐烂的橘子：
+
+在给定的 m x n 网格 grid 中，每个单元格可以有以下三个值之一：
+
+    值 0 代表空单元格；
+    值 1 代表新鲜橘子；
+    值 2 代表腐烂的橘子。
+
+每分钟，腐烂的橘子 周围 4 个方向上相邻 的新鲜橘子都会腐烂。
+
+返回 直到单元格中没有新鲜橘子为止所必须经过的最小分钟数。如果不可能，返回 -1 。
+
+ 
+
+示例 1：
+
+输入：grid = [[2,1,1],[1,1,0],[0,1,1]]
+输出：4
+
+示例 2：
+
+输入：grid = [[2,1,1],[0,1,1],[1,0,1]]
+输出：-1
+解释：左下角的橘子（第 2 行， 第 0 列）永远不会腐烂，因为腐烂只会发生在 4 个正向上。
+
+示例 3：
+
+输入：grid = [[0,2]]
+输出：0
+解释：因为 0 分钟时已经没有新鲜橘子了，所以答案就是 0 。
+
+### 思路： 
+
+用队列存储腐烂的橘子，对这些橘子进行广度优先搜索。被传染的橘子继续入队，直到队列为空。
+
+### 代码：
+
+```c++
+class Solution {
+
+private:
+    static constexpr int dirs[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+public:
+
+    int min_time;
+    int googcount;
+    int badcount;
+    int orangesRotting(vector<vector<int>>& grid) {
+
+        int row=grid.size();
+        int col=grid[0].size();
+        //记录第几秒访问,第几秒从这个橘子扩散
+        vector<vector<int> > visit_turn(row,vector<int> (col,0));
+        //记录坏橘子坐标
+        queue<pair<int, int>> q;
+        googcount=0;
+        badcount=0;
+        min_time=0;
+        //遍历格子，获取烂橘子，好橘子个数,存储烂橘子坐标
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+                if(grid[i][j]==2){
+                    ++badcount;
+                    visit_turn[i][j]=1;
+                    q.emplace(i, j);
+                }else if(grid[i][j]==1){
+                    ++googcount;
+                }
+            }
+        }
+
+        if(googcount==0) {
+            return min_time;
+        }else if(badcount==0 && googcount!=0){
+            return -1;
+        }
+
+
+    //不在扩散烂橘子的时候结束循环
+    int increase=1;
+    //广度优先搜索
+    while (!q.empty()) {
+            //min_time++;
+            //increase=0;
+
+            auto [i, j] = q.front();
+            q.pop();
+
+            if(visit_turn[i][j]>min_time){
+                min_time=visit_turn[i][j];
+                //increase=0;
+            }
+
+            if(googcount==0) min_time--;
+            
+
+            for (int d = 0; d < 4; ++d) {
+                int ni = i + dirs[d][0];
+                int nj = j + dirs[d][1];
+                if (ni >= 0 && ni < row && nj >= 0 && nj < col && grid[ni][nj]==1 ) {
+                    grid[ni][nj] = 2;
+                    --googcount;
+                    q.emplace(ni, nj);
+                    visit_turn[ni][nj] = min_time+1;
+                    //increase++;
+                }
+            }
+        }
+        if(googcount!=0) min_time=-1;
+        return min_time;
+
+    }
+};
+```
+
+
+
