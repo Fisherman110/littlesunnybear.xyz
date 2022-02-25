@@ -1,4 +1,4 @@
-# C++的集合/容器(set,vector)介绍
+# C++的集合/容器(set,vector,map)介绍
 
 ## set
 
@@ -8,25 +8,33 @@
  set< T > name;
  就构造了一个存储数据T的的集合name
 
-基本操作：
+### 注意点：
 
-#### 插入：
+map和set的插入删除效率比其他序列容器高。因为set容器的所有元素都是以节点的方式来存储，其节点结构和链表差不多，所以插入删除效率很高。
 
-name.insert(T) ;
+在插入之后，以前的iterator不会失效，因为iterator相当于指向节点的指针，内存没有边，指针不会失效（只有删除的那个元素本身失效了），vector的每一次删除和插入，迭代其都可能失效（容器空间不够了，需要申请更大的内存，只能把以前的内存释放，复制已有数据元素到新的内存，不要使用过期的iterator）
+
+数据元素增多的时候，set查找也很快，set中使用的是二分查找。
+
+### 基本操作：
+
+插入：name.insert(T) ;
  意为：向name集合里存入数据T
  **注意如果集合中已经存在了某个元素，再次插入不会产生任何效果，集合中是不会出现重复元素的。**
 
-#### 删除：
-
-name.erase（T）；
+删除：name.erase（T）；
  意为：把name里的T删除
  **注意如果集合里面没有T元素将不会有任何效果！**
 
-#### 查找：
+返回第一个元素：T  name.begin()
 
-name.count(T);
+判断元素存在：name.count(T);
  意为：如果集合里有元素T，返回true，否则返回false
  **注意这个查找的时间复杂度大概在O(log(n))，因为它是一种线性数据结构所以能够比较快速地查出这个元素**
+
+返回set容器中的元素个数：name.size()
+
+清空，删除所有元素：name.clear()
 
 #### 遍历
 
@@ -40,9 +48,7 @@ for(set< T >::iterator it=name.begin();it!=name.end();it++)
 
 可以当做模板背一下！
 
-### 清空
 
-name.clear(T);
 
 
 
@@ -141,4 +147,45 @@ int main(){
 }
 ```
 
-### 这里有个坑，直接 row1.erase(it++)会出现后面无法遍历容器的情况，只能row1.erase(row1.begin()+3)这种形式，具体原因我还没弄清楚
+**这里有个坑，直接 row1.erase(it++)会出现后面无法遍历容器的情况，只能row1.erase(row1.begin()+3)这种形式，具体原因我还没弄清楚**
+
+**已经弄清楚了，vector在插入删除元素之后，迭代器会失效，不要使用过期的iterator**
+
+### Map
+
+导入头文件 #include < map> //stl头文件没有拓展名
+
+### 介绍：
+
+C++ 中 map 提供的是一种键值对容器，里面的数据都是成对出现的,如下图：每一对中的第一个值称之为关键字(key)，每个关键字只能在 map 中出现一次；第二个称之为该关键字的对应值。在一些程序中建立一个 map 可以起到事半功倍的效果。map中的元素自动按照key升序排序，不能使用sort函数
+
+### 基本使用：
+
+构造： map < int ,string> person;
+
+添加数据(pair类型)： person.insert(pair < int ,string > (1,"zhangsan"));
+
+添加value_type数据：person.insert(value_type(2,"lisi"));
+
+用数组方式插入数据：person[3]="wangwu";
+
+遍历：
+
+```
+map <int ,string> person;
+map::iterator it;
+it=person.begin();
+while(it!=person.end()){
+	cout<<it->sirse<<" "<<it->second<<endl;
+	it++;
+}
+```
+
+查找： iterator person.find(2)；
+
+find()函数返回一个迭代器指向间值为key的元素，如果没有找到就返回map尾部的迭代器
+
+删除：erase(iterator it) //通过一个条目对象删除 /erase (const Key&key)关键字删除
+
+交换：map1.swap(map2) /swap不是一个容器中的元素交换，而是两个容器交换
+
