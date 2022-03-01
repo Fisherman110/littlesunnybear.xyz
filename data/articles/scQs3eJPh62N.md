@@ -75,7 +75,7 @@ content:"<a href='https://littlesunnybear.com'>hello</a>"
 
 v-on：为元素绑定事件
 
-```
+```html
 <div id="app">
 <input type="button" value="绑定鼠标点击事件" v-on:click="click"></input>
 <input type="button" value="绑定鼠标移入事件" v-on:mouseenter="click"></input>
@@ -100,20 +100,135 @@ this.food="香蕉";
 
 
 
--p10
-
 2，显示切换，属性绑定
 
-v-show
+v-show：根据表达式值的真假，切换元素的显示和隐藏，原理是修改元素的display，指令后面的内容，最终都会解析为布尔值
 
-v-if
+```html
+<div id="app">
+<p v-show="isShow">djfkdjkd</p>
+<p v-show="age>18">dsjfkdk </p>
+</div>
 
-v-bind
+var app=new Vue({
+el:"#app",
+data:{
+content:"<a href='https://littlesunnybear.com'>hello</a>",
+isShow:false;
+age:16,
+}
+})
+```
+
+
+
+v-if：根据表达式的真假切换元素的显示状态，本质是通过操纵dom元素来切换显示状态
+
+表达式为true时，元素存在于dom树中，为false时，从dom树中移除
+
+```html
+<div id="app">
+<p v-if="isShow">v-if</p>
+</div>
+
+var app=new Vue({
+el:"#app",
+data:{
+content:"<a href='https://littlesunnybear.com'>hello</a>",
+isShow:false,
+}
+})
+```
+
+
+
+v-bind：设置元素的属性（比如：src,title,class）(v-bin可以省略，只留下冒号)
+
+```html
+<div id="app">
+<img v-bind:src="imgSrc"></img>
+<img v-bind:title="imgTitle+'!'"></img>
+<img v-bind:class="isShow?'show':''"></img>
+</div>
+
+var app=new Vue({
+el:"#app",
+data:{
+isShow:false,
+imgSrc:"../img.jpg",
+imgTitle:"img2343",
+}
+})
+```
 
 3，列表循环，表单元素绑定
 
-v-for
+v-for：根据数据生成列表结构，数组经常和v-for结合使用
 
-v-on
+```html
+<div id="app">
+<ul>
+    <li v-for:"{item,index} in arr"> 你好 {{ item }}</li>
+    </ul>
+</div>
 
-v-model
+var app=new Vue({
+el:"#app",
+data:{
+//如果数组内容改变，标签会同步渲染，是响应式的
+arr:[1,2,3,4,5]
+}
+})
+```
+
+
+
+v-on：事件绑定的方法携程函数调用的形式，可以传入自定义参数。定义方法时需要定义形式参数接收传入的实参，事件的后面跟上.修饰符可以对事件进行限制。.enter可以限制触发的按键为回车
+
+```html
+<div id="app">
+    <input type="button" value="点击" @click="clicked(666,"老铁")"></input>
+	<input type="text" @keyup.enter="sayHi" ></input>
+</div>
+
+var app=new Vue({
+el:"#app",
+data:{
+},
+methods:{
+clicked:function(p1,p2){
+console.log(p1);
+console.log(p2);
+},j
+sayHi:function(){
+alert("hello");
+}
+}
+})
+```
+
+
+
+v-model：获取和设置表单元素的值（双向数据绑定）
+
+```html
+<div id="app">
+    <input type="text" v-model="message"></input>
+</div>
+
+var app=new Vue({
+el:"#app",
+data:{
+//双向绑定，变量改变，标签内容更新。标签内容改变，变量更新
+message:"hello",
+},
+methods:{
+}
+})
+```
+
+p17
+
+参考教程：https://www.bilibili.com/video/BV12J411m7MG
+
+参考网站：https://cn.vuejs.org/v2/guide/
