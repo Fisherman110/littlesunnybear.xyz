@@ -28,7 +28,12 @@
 
 Java 中一共有四种访问权限控制，其权限控制的大小情况是这样的：public > protected > default(包访问权限) > private ,具体的权限控制看下面表格，列所指定的类是否有权限允许访问行的权限控制下的内容：
 
-![java权限控制](../img/java_privelege.png)
+| 访问控制符 | 当前类 | 同一包内 | 子孙类 | 其它包 |
+| ---------- | ------ | -------- | ------ | ------ |
+| public     | Y      | Y        | Y      | Y      |
+| protected  | Y      | Y        | Y      | N      |
+| default    | Y      | Y        | N      | N      |
+| private    | Y      | N        | N      | N      |
 
 ### 4.对象的生命周期
 
