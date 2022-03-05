@@ -227,7 +227,47 @@ methods:{
 })
 ```
 
-p17
+
+
+### 网络应用
+
+**axios**  功能强大的网络请求库
+
+引入库：< script src="https://unpkg,com/axios/dist/axios.min.js" > < /script >
+
+使用方法：
+
+```javascript
+	< script src="https://unpkg,com/axios/dist/axios.min.js" > < /script >
+//get方法
+	axios.get('http://127.0.0.1:8080/test/delUser?userId='+id)
+      .then((response) => {
+        console.log(response.data);//请求的返回体
+      })
+      .catch((error) => {
+        console.log(error);//异常
+      });
+      
+      //post方法
+     axios.post('http://127.0.0.1:8080/test/login', {
+            name: "admin",
+            pwd: "123456"
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+```
+
+
+
+
+
+
+
+
 
 参考教程：https://www.bilibili.com/video/BV12J411m7MG
 
