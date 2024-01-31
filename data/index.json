@@ -63,10 +63,10 @@
   "菜单中的外部链接": [],
   "全局主题设置": {
     "//": "颜色格式为十六进制颜色或HTML颜色名，如white、grey、#66ccff",
-    "是否使用第三方主题": false,
+    "是否使用第三方主题": true,
     "若使用第三方主题，是否来自本地文件": false,
-    "若使用来自主题商店的第三方主题，则主题名为": "",
-    "若使用来自主题商店的第三方主题，则主题的更新发布日期为": "",
+    "若使用来自主题商店的第三方主题，则主题名为": "官方主题v2",
+    "若使用来自主题商店的第三方主题，则主题的更新发布日期为": 20221130,
     "标题栏背景颜色": "#0d6efd",
     "标题栏文字颜色": "white",
     "是否使用纯色背景（优先级高于背景图像）": false,
@@ -78,17 +78,25 @@
       "将某个url作为背景图像": true,
       "若将某个url作为背景图像，这个url是": "https://api.paugram.com/wallpaper/"
     },
-    "第三方主题版本": "",
-    "第三方主题文件内容": [],
+    "第三方主题版本": "v2",
+    "第三方主题文件内容": [
+      "index.html",
+      "css/",
+      "css/blogcss.css",
+      "css/style.css",
+      "css/body_opacity.css",
+      "js/",
+      "js/main.js"
+    ],
     "禁用导航栏的阴影效果": false,
     "链接颜色": "#0d6efd"
   },
   "全局评论设置": {
     "启用valine评论": true,
     "valine设置": {
-      "leancloud_appid": "SykuVs4qcWMkl4RUtKEUlmog-gzGzoHsz",
-      "leancloud_appkey": "0jowkR4ct0lJbWcvocymEkKw",
-      "是否使用bbg公共评论服务": true,
+      "leancloud_appid": "FGVlHCgkY3JKlHKG3lkXo1W9-MdYXbMMI",
+      "leancloud_appkey": "KSBTnfdEbThP1FzmglmEUwaz",
+      "是否使用bbg公共评论服务": false,
       "记录评论者ip": true,
       "记录访问量": true,
       "评论区占位符（提示文字）": "",
@@ -121,7 +129,7 @@
       "范围包括抖机灵分类下的一言": true
     }
   },
-  "底部信息（格式为markdown）": "©2022.2.14.  All rights reserved.\n©2024.1.28. littlesunnybear@foxmail.com All rights reserved.",
+  "底部信息（格式为markdown）": "©2024.1.28. littlesunnybear@foxmail.com All rights reserved.",
   "全站内容授权说明": "",
   "页面列表": [
     {
@@ -443,7 +451,7 @@
   "启用自定义CSS": true,
   "启用自定义JS": true,
   "自定义CSS": "",
-  "自定义JS": "function nowisArticleList(){\ntry {\n        if(document.getElementById('blog_index_title').innerHTML === blog[\"博客标题\"]){\n                return true;\n}\n\n}\n catch (error) {\n        return false;\n      }\n}\n\nif(nowisArticleList()){ \ndocument.getElementById('container').innerHTML = `\n<br />\n<br />\n<br />\n<h1>${blog[\"博客标题\"]}</h1>\n<p>${blog[\"博客描述（副标题）\"]}</p>\n<hr />\n\n<h3>欢迎远行者前来落脚！</h3>\n\n<p>你好呀！朋友</p>\n\n<p>我是一名计算机爱好者，这是我的个人博客，这里记录了一些关于linux和个人生活和学习的内容。希望它能帮到你，或者让你开心。你也可以留言和我交流。</p>\n\n<p>我的邮箱是zqbx122333@163.com</p>\n\n\n`;\n\nrender_article_list();\nrender_bottom_information();\n}",
+  "自定义JS": "function nowisArticleList(){\ntry {\n        if(document.getElementById('blog_index_title').innerHTML === blog[\"博客标题\"]){\n                return true;\n}\n\n}\n catch (error) {\n        return false;\n      }\n}\n\nif(nowisArticleList()){ \ndocument.getElementById('container').innerHTML = `\n<br />\n<br />\n<br />\n<h1>${blog[\"博客标题\"]}</h1>\n<p>${blog[\"博客描述（副标题）\"]}</p>\n<hr />\n\n<h3>欢迎远行者前来落脚！</h3>\n\n<p>你好呀！朋友</p>\n\n<p>我是一名计算机爱好者，这是我的个人博客，这里记录了一些关于linux和个人生活和学习的内容。希望它能帮到你，或者让你开心。你也可以留言和我交流。</p>\n\n<p>我的邮箱是littlesunnybear@foxmail.com</p>\n\n\n`;\n\nrender_article_list();\nrender_bottom_information();\n}",
   "文章列表中每页的文章数为": "10",
   "全站内容授权协议": "reserved",
   "不使用全站内容授权协议": false,
