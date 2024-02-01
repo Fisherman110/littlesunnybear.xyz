@@ -11,7 +11,7 @@
     "网页图标文件名": "favicon.ico"
   },
   "启用内建友人帐页面": true,
-  "友人帐页面附加信息": "hello，这是我的友链页面，欢迎在评论区留言互换友链\n\n\n\n\n\n\n\n\n\n\n\n",
+  "友人帐页面附加信息": "hello，这是我的友链页面，欢迎在评论区留言互换友链\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
   "友人帐": [
     {
       "名称": "白羊李志远のBlog",
@@ -26,9 +26,9 @@
       "图标": "https://s2.loli.net/2022/02/13/SntFYApjrh6GCNw.jpg"
     },
     {
-      "名称": "喵~~",
-      "链接": "https://cat_planet.gitee.io/cat_planet/classic/blog/index.html",
-      "简介": "本喵的个人博客",
+      "名称": "无意识の桜",
+      "链接": "https://koishi514.moe/blog/bbg/index.html",
+      "简介": "光は全て照らし、导き逢う、暖かな爱の物语",
       "图标": "https://s2.loli.net/2022/02/13/nIF1Lu6cvUQiP2N.png"
     },
     {
@@ -54,6 +54,18 @@
       "链接": "https://blog.atri.tk/",
       "简介": "划水摸鱼最快乐啦～ 写blog什么的才不要呢",
       "图标": "https://s2.loli.net/2022/02/13/zuQC9oEmxhj7A1v.png"
+    },
+    {
+      "名称": "叶月绘梨依",
+      "链接": "https://www.hazukieq.top/",
+      "简介": "日常记文与方言分享",
+      "图标": "https://www.hazukieq.top/img/gajen.png"
+    },
+    {
+      "名称": "无意识の桜",
+      "链接": "http://koishi514.moe/blog",
+      "简介": "光は全て照らし、导き逢う、暖かな爱の物语",
+      "图标": "https://koishi514.moe/favicon.ico"
     }
   ],
   "友人帐页面允许评论": true,
